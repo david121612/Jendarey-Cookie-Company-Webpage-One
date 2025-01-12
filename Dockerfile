@@ -15,6 +15,9 @@ COPY . /app
 WORKDIR /app
 RUN mvn clean package
 
+# List the contents of the target directory for debugging
+RUN ls -l /app/target
+
 # Remove the default Tomcat applications
 RUN rm -rf /usr/local/tomcat/webapps/*
 
