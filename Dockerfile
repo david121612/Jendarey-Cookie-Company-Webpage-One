@@ -20,7 +20,7 @@ RUN mvn clean package
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy the .war file into the Tomcat webapps directory
-COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
+COPY /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose port 8080 for the application
 EXPOSE 8080
