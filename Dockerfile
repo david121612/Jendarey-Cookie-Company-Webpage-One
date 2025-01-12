@@ -15,7 +15,8 @@ COPY . /app
 WORKDIR /app
 RUN mvn clean package
 
-# List the contents of the target directory for debugging
+# List the contents of the app and target directories for debugging
+RUN ls -l /app
 RUN ls -l /app/target
 
 # Remove the default Tomcat applications
@@ -28,8 +29,7 @@ COPY /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 
 # Define the default command to start Tomcat
-CMD ["catalina.sh", "run"]
-# docker build . -t jendaredocker/jendarey-cookie-company-webpage-main
+CMD ["catalina.sh", "run"# docker build . -t jendaredocker/jendarey-cookie-company-webpage-main
 # docker run -d -p 18900:8080 --name=cookies-webpage jendaredocker/jendarey-cookie-company-webpage-main:v1
 # docker run -d -p 19900:8080 --name=cookies-web jendaredocker/jendarey-cookie-company-webpage-main:v2
 
