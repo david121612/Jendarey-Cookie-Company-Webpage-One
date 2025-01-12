@@ -5,16 +5,15 @@ FROM tomcat:10.1.14-jdk17
 LABEL author="Akin"
 LABEL project="Jendarey-Cookie-Company-Webpage-Project"
 
-# Install required dependencies 
-RUN apt-get update && apt-get install -y openjdk-17-jdk 
-RUN apt-get install -y maven git 
- 
-# Clone the application repository 
-RUN git clone https://github.com/david121612/Jendarey-Cookie-Company-Webpage-One.git /app 
- 
-# Build the application using Maven 
-WORKDIR /app 
-RUN mvn clean package 
+# Install required dependencies
+RUN apt-get update && apt-get install -y maven git && rm -rf /var/lib/apt/lists/*
+
+# Copy the application repository to the image
+COPY . /app
+
+# Build the application using Maven
+WORKDIR /app
+RUN mvn clean package
 
 # Remove the default Tomcat applications
 RUN rm -rf /usr/local/tomcat/webapps/*
@@ -27,7 +26,6 @@ EXPOSE 8080
 
 # Define the default command to start Tomcat
 CMD ["catalina.sh", "run"]
-
 # docker build . -t jendaredocker/jendarey-cookie-company-webpage-main
 # docker run -d -p 18900:8080 --name=cookies-webpage jendaredocker/jendarey-cookie-company-webpage-main:v1
 # docker run -d -p 19900:8080 --name=cookies-web jendaredocker/jendarey-cookie-company-webpage-main:v2
