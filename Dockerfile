@@ -5,6 +5,17 @@ FROM tomcat:10.1.14-jdk17
 LABEL author="Akin"
 LABEL project="Jendarey-Cookie-Company-Webpage-Project"
 
+# Install required dependencies 
+RUN apt-get update && apt-get install -y openjdk-17-jdk 
+RUN apt-get install -y maven git 
+ 
+# Clone the application repository 
+RUN git clone https://github.com/david121612/Jendarey-Cookie-Company-Webpage-One.git /app 
+ 
+# Build the application using Maven 
+WORKDIR /app 
+RUN mvn clean package 
+
 # Remove the default Tomcat applications
 RUN rm -rf /usr/local/tomcat/webapps/*
 
